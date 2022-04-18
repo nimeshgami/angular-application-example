@@ -1,0 +1,36 @@
+{
+  "user": [
+    {
+      "userFirstName": "Sweta",
+      "userLastName": "Patel",
+      "userMobile": "9090909090",
+      "id": 1
+    },
+    {
+      "userFirstName": "Sweta",
+      "userLastName": "Patel",
+      "userMobile": "",
+      "id": 2
+    },
+    {
+      "userFirstName": "Sweta",
+      "userLastName": "Patel",
+      "userMobile": "",
+      "id": 3
+    }
+  ],
+  "driver": [
+    {
+      "driverFirstName": "Sweta",
+      "driverLastName": "Patel",
+      "driverMobile": "90909090909",
+      "id": 1
+    },
+    {
+      "driverFirstName": "Sweta",
+      "driverLastName": "Swet",
+      "driverMobile": "",
+      "id": 2
+    }
+  ]
+}

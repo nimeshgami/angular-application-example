@@ -1,0 +1,48 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form [formGroup]="loginForm">
+                  <h1>Verify OTP</h1>
+                  <p class="text-muted">Sent OTP to your registred mobile number</p>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-key"></i></span>
+                    </div>
+                    <input type="text" name="otp" formControlName="otp" class="form-control"
+                      placeholder="OTP" required [(ngModel)]="iLogin.otp">
+
+
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="text-danger" *ngIf="loginForm.get('otp').hasError('required') && submitted">
+                      Required</span>
+                    <span class="text-danger" *ngIf="loginForm.get('otp').hasError('pattern') && submitted">
+                      Invalid
+                      format</span>
+                  </div>
+                 
+                  <div class="input-group mb-3" *ngIf="ErrorMsg != ''">
+                    <span class="text-danger">{{ErrorMsg}}</span>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-primary px-4" (click)="onVerifyOTP()">Verify OTP</button>
+                    </div>
+                    <div class="col-6 text-right">
+                      <button type="button" class="btn btn-link px-0" (click)="onLogin()">Login</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

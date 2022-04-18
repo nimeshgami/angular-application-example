@@ -1,0 +1,178 @@
+<div class="card" style="width: 600px;">
+  <div class="card-header">
+    <strong>Driver Form</strong>
+  </div>
+  <div class="card-body">
+
+    <ng-container *ngIf="isViewOnly">
+      <div class="bd-example">
+        <dl class="row">
+          <dt class="col-sm-3">Name</dt>
+          <dd class="col-sm-9">{{userdate.first_name}} {{userdate.last_name}}</dd>
+
+          <dt class="col-sm-3">Status</dt>
+          <dd class="col-sm-9">{{userdate.is_active=='1'?'Active':'Inactive' }}</dd>
+
+          <dt class="col-sm-3">Approval Status</dt>
+          <dd class="col-sm-9">{{userdate.status}}</dd>
+
+          <dt class="col-sm-3">Email</dt>
+          <dd class="col-sm-9">{{userdate.email}}</dd>
+
+          <dt class="col-sm-3 text-truncate">Phone</dt>
+          <dd class="col-sm-9">{{userdate.phone_number}}</dd>
+
+          <dt class="col-sm-3">Profile</dt>
+          <dd class="col-sm-9"><img src="{{userdate.profile_pic}}" onerror="this.src='assets/img/user-profile.png';"
+              alt="" width="60" height="60">
+          </dd>
+          <dt class="col-sm-3 text-truncate">Vehicle type</dt>
+          <dd class="col-sm-9">{{userdate.vehicle_type_id.vehicle_type}}</dd>
+
+          <dt class="col-sm-3 text-truncate">Vehicle No.</dt>
+          <dd class="col-sm-9">{{userdate.vehicle_number}}</dd>
+
+          <dt class="col-sm-3 text-truncate">Created At</dt>
+          <dd class="col-sm-9">{{userdate.createdAt| date:'dd/MM/yyyy'}}</dd>
+
+          <dt class="col-sm-3 text-truncate">Updated At</dt>
+          <dd class="col-sm-9">{{userdate.updatedAt| date:'dd/MM/yyyy'}}</dd>
+
+          <dt class="col-sm-3 text-truncate">ID proof</dt>
+          <dd class="col-sm-9"><a href="{{userdate.identity_proof_pic}}" download>click to download</a></dd>
+
+
+
+
+        </dl>
+      </div>
+
+      <!-- createdAt: "2021-08-09T17:38:15.371Z"
+      created_at: 1628530694912
+      deleted_at: null
+      delivery_company: "3EFret"
+      email: "vatsalshah7556@yahoo.com"
+      first_name: "Vatsal"
+      identity_proof_pic: "https://Example.s3.ap-south-1.amazonaws.com/images/identity_image/identity_proof_pic-1628530691528.jpg"
+      ipAddress: "27.61.208.234"
+      is_active: 1
+      is_verified: true
+      lastLogin: "2021-08-10T15:53:38.023Z"
+      last_name: "Shah"
+      phone_number: "+919925076461"
+      profile_pic: "https://Example.s3.ap-south-1.amazonaws.com/images/profile_image/profile_pic-1628530689434.jpg"
+      social_id: null
+      social_type: null
+      status: "Approved"
+      updatedAt: "2021-08-10T15:53:38.023Z"
+      user_otp: null
+      user_otp_expires: null
+      user_type: 2
+      useragent: "okhttp/3.12.12"
+      vehicle_type_id: "610da54181c7c658a4be6625"
+      verify_token: false
+      _id: "611168068c498340425bbdf5" -->
+
+    </ng-container>
+    <ng-container *ngIf="!isViewOnly">
+      <form [formGroup]="driverForm" enctype="multipart/form-data" class="form-horizontal">
+        <!-- ***Driver First Name*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">First Name</label>
+          <div class="col-md-9">
+            <input type="text" name="text-input" class="form-control" formControlName="first_name"
+              placeholder="Enter Your First Name">
+            <span class="text-danger" *ngIf="driverForm.get('first_name').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="driverForm.get('first_name').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+
+        <!-- ***Driver Last Name*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">Last Name</label>
+          <div class="col-md-9">
+            <input type="text" name="text-input" class="form-control" formControlName="last_name"
+              placeholder="Enter Your Last Name">
+            <span class="text-danger" *ngIf="driverForm.get('last_name').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="driverForm.get('last_name').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <img style="margin-left: 150px;" src="{{imagePath}}" onerror="this.src='assets/img/user-profile.png';"
+              alt="" width="60" height="60">
+          </div>
+        </div>
+
+
+        <!-- ***Driver Mobile*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">Mobile</label>
+          <div class="col-md-9">
+            <input type="text" name="text-input" class="form-control" formControlName="phone_number"
+              placeholder="Enter Your Mobile Number" formControlName="phone_number" disabled>
+            <span class="text-danger" *ngIf="driverForm.get('phone_number').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="driverForm.get('phone_number').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+
+        <!-- ***Driver Email*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="email-input">Email</label>
+          <div class="col-md-9">
+            <input type="email" name="email-input" class="form-control" placeholder="Enter Email" autocomplete="email"
+              disabled formControlName="email">
+            <span class="text-danger" *ngIf="driverForm.get('email').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="driverForm.get('email').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">Delivery Company</label>
+          <div class="col-md-9">
+            <input type="text" name="text-input" class="form-control" formControlName="delivery_company"
+              placeholder="Enter Your Delivery Company">
+            <span class="text-danger" *ngIf="driverForm.get('delivery_company').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="driverForm.get('delivery_company').hasError('pattern') && submitted">
+              Invalid
+              format</span>
+          </div>
+        </div>
+
+      </form>
+    </ng-container>
+
+  </div>
+  <div class="card-footer">
+    <ng-container *ngIf="!isViewOnly">
+      <button type="button" (click)="onSubmitDriver()" class="btn btn-sm btn-primary"><i
+          class="fa fa-dot-circle-o"></i>{{ isEditable ? 'Update' : 'Submit' }}</button>&nbsp;&nbsp;
+    </ng-container>
+
+    <ng-container *ngIf="isViewOnly && userdate.status != 'Approved' && userdate.status != 'Rejected'">
+      <button type="submit" (click)="changeuserStatus('Approved')" class="btn btn-sm btn-success">
+        <i class="fa fa-dot-circle-o"></i>Approve</button>&nbsp;&nbsp;
+
+      <button type="submit" (click)="changeuserStatus('Rejected')" class="btn btn-sm btn-danger">
+        <i class="fa fa-dot-circle-o"></i>Reject</button>&nbsp;&nbsp;
+
+      
+
+    </ng-container>
+
+    <!-- <button type="submit" (click)="changeuserStatus('Pending')" class="btn btn-sm btn-danger">
+      <i class="fa fa-dot-circle-o"></i>Reject</button>&nbsp;&nbsp; -->
+    <button type="button" (click)="closeForm()" class="btn btn-sm btn-dark"><i class="fa fa-ban"></i> Cancel</button>
+
+  </div>
+</div>

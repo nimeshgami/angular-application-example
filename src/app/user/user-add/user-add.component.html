@@ -1,0 +1,208 @@
+<div class="card" style="width: 600px;">
+  <div class="card-header">
+    <strong>User Form</strong>
+  </div>
+  <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+    <ng-container *ngIf="isViewOnly">
+      <div class="bd-example">
+        <dl class="row">
+          <dt class="col-sm-3">Name</dt>
+          <dd class="col-sm-9">{{userdate.first_name}} {{userdate.last_name}}</dd>
+
+          <dt class="col-sm-3">Status</dt>
+          <dd class="col-sm-9">{{userdate.is_active=='1'?'Active':'Inactive' }}</dd>
+
+          <dt class="col-sm-3">Approval Status</dt>
+          <dd class="col-sm-9">{{userdate.status}}</dd>
+
+
+          <dt class="col-sm-3">Email</dt>
+          <dd class="col-sm-9">{{userdate.email}}</dd>
+
+          <dt class="col-sm-3 text-truncate">Phone</dt>
+          <dd class="col-sm-9">{{userdate.phone_number}}</dd>
+
+          <dt class="col-sm-3">Profile</dt>
+          <dd class="col-sm-9"><img src="{{userdate.profile_pic}}" onerror="this.src='assets/img/user-profile.png';"
+              alt="" width="60" height="60">
+          </dd>
+          <ng-container *ngIf="userdate.sub_user_type == 2">
+            <dt class="col-sm-3 text-truncate">Company Name</dt>
+            <dd class="col-sm-9">{{userdate.company_name}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Business Address</dt>
+            <dd class="col-sm-9">{{userdate.business_address}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Business Type</dt>
+            <dd class="col-sm-9">{{userdate.business_type}}</dd>
+
+            <dt class="col-sm-3 text-truncate">Tax Number</dt>
+            <dd class="col-sm-9">{{userdate.tax_number}}</dd>
+          </ng-container>
+
+          <dt class="col-sm-3 text-truncate">Created At</dt>
+          <dd class="col-sm-9">{{userdate.createdAt| date:'dd/MM/yyyy'}}</dd>
+
+          <dt class="col-sm-3 text-truncate">Updated At</dt>
+          <dd class="col-sm-9">{{userdate.updatedAt| date:'dd/MM/yyyy'}}</dd>
+
+          <dt class="col-sm-3 text-truncate">address</dt>
+          <dd class="col-sm-9">
+            <p *ngFor="let a of userdate.addresssess">
+              {{ a.address }}, {{ a.buildingName}}, {{ a.landmark }}, {{ a.locationName }}, {{ a.name }}
+              <br />
+              Contact Name: {{ a.contactName }} Number: {{ a.contactNumber }}
+            </p>
+
+          </dd>
+
+
+        </dl>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isViewOnly">
+      <form [formGroup]="userForm" enctype="multipart/form-data" class="form-horizontal">
+
+
+        <!-- ***User First Name*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="first_name">First Name</label>
+          <div class="col-md-9">
+            <input type="text" name="first_name" class="form-control" formControlName="first_name"
+              placeholder="Enter Your First Name">
+            <span class="text-danger" *ngIf="userForm.get('first_name').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="userForm.get('first_name').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+
+
+        <!-- ***User Last Name*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">Last Name</label>
+          <div class="col-md-9">
+            <input type="text" name="text-input" class="form-control" formControlName="last_name"
+              placeholder="Enter Your Last Name">
+            <span class="text-danger" *ngIf="userForm.get('last_name').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="userForm.get('last_name').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <img style="margin-left: 150px;" src="{{imagePath}}" onerror="this.src='assets/img/user-profile.png';"
+              alt="" width="60" height="60">
+          </div>
+        </div>
+
+        <!-- ***User Mobile*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">Mobile</label>
+          <div class="col-md-9">
+            <input type="text" id="text-input" name="text-input" class="form-control" formControlName="phone_number"
+              placeholder="Enter Your Mobile Number" disabled>
+            <span class="text-danger" *ngIf="userForm.get('phone_number').hasError('required') && submitted">
+              Required</span>
+            <span class="text-danger" *ngIf="userForm.get('phone_number').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+
+        <!-- ***User Email*** -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="email-input">Email</label>
+          <div class="col-md-9">
+            <input type="email" name="email-input" class="form-control" placeholder="Enter Email"
+              formControlName="email" disabled>
+            <span class="text-danger" *ngIf="userForm.get('email').hasError('required') && submitted"> Required</span>
+            <span class="text-danger" *ngIf="userForm.get('email').hasError('pattern') && submitted"> Invalid
+              format</span>
+          </div>
+        </div>
+        <ng-container *ngIf="userdate.sub_user_type == 2">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="company_name">Company Name</label>
+            <div class="col-md-9">
+              <input type="text" name="company_name" class="form-control" formControlName="company_name"
+                placeholder="Enter Your Company Name">
+              <span class="text-danger" *ngIf="userForm.get('company_name').hasError('required') && submitted">
+                Required</span>
+              <span class="text-danger" *ngIf="userForm.get('company_name').hasError('pattern') && submitted"> Invalid
+                format</span>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="business_address">Business Address</label>
+            <div class="col-md-9">
+              <input type="text" name="business_address" class="form-control" formControlName="business_address"
+                placeholder="Enter Your Business Address">
+              <span class="text-danger" *ngIf="userForm.get('business_address').hasError('required') && submitted">
+                Required</span>
+              <span class="text-danger" *ngIf="userForm.get('business_address').hasError('pattern') && submitted">
+                Invalid
+                format</span>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="business_type">Business Type</label>
+            <div class="col-md-9">
+              <input type="text" name="business_type" class="form-control" formControlName="business_type"
+                placeholder="Enter Your Business Type">
+              <span class="text-danger" *ngIf="userForm.get('business_type').hasError('required') && submitted">
+                Required</span>
+              <span class="text-danger" *ngIf="userForm.get('business_type').hasError('pattern') && submitted"> Invalid
+                format</span>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="tax_number">Tax Number</label>
+            <div class="col-md-9">
+              <input type="text" name="tax_number" class="form-control" formControlName="tax_number"
+                placeholder="Enter Your Tax Number">
+              <span class="text-danger" *ngIf="userForm.get('tax_number').hasError('required') && submitted">
+                Required</span>
+              <span class="text-danger" *ngIf="userForm.get('tax_number').hasError('pattern') && submitted"> Invalid
+                format</span>
+            </div>
+          </div>
+        </ng-container>
+
+
+      </form>
+    </ng-container>
+
+
+
+
+
+  </div>
+  <div class="card-footer">
+    <ng-container *ngIf="!isViewOnly">
+      <button type="submit" (click)="onSubmitUser()" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
+        {{ isEditable ? 'Update' : 'Submit' }}</button>&nbsp;&nbsp;
+    </ng-container>
+
+    <ng-container
+      *ngIf="isViewOnly && userdate.sub_user_type == 2 && userdate.status != 'Approved' && userdate.status != 'Rejected'">
+      <button type="submit" (click)="changeuserStatus('Approved')" class="btn btn-sm btn-success">
+        <i class="fa fa-dot-circle-o"></i>Approve</button>
+      &nbsp;&nbsp;
+      <button type="submit" (click)="changeuserStatus('Rejected')" class="btn btn-sm btn-danger"><i
+          class="fa fa-dot-circle-o"></i>
+          Reject</button>
+      &nbsp;&nbsp;
+    </ng-container>
+
+
+
+
+    <button type="button" (click)="closeForm()" class="btn btn-sm btn-dark"><i class="fa fa-ban"></i> Cancel</button>
+  </div>
+</div>
